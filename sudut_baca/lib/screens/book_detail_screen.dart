@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/book_data.dart';
 import 'checkout_screen.dart';
-import 'reading_screen.dart'; // <-- TAMBAHKAN IMPORT INI
+import 'synopsis_screen.dart';
 
 class BookDetailScreen extends StatelessWidget {
   final Book book;
@@ -41,16 +41,14 @@ class BookDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 30),
 
-            // --- UBAH AKSI TOMBOL DI SINI ---
             ElevatedButton.icon(
               icon: const Icon(Icons.chrome_reader_mode_outlined),
               label: const Text('Baca Online'),
               onPressed: () {
-                // Arahkan ke ReadingScreen
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ReadingScreen(book: book),
+                    builder: (context) => SynopsisScreen(book: book),
                   ),
                 );
               },

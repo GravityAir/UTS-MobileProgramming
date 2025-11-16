@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'screens/login_screen.dart';
 import 'screens/category_selection_screen.dart';
 
-void main() {
-  runApp(const PustakaDigitalApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+  runApp(PustakaDigitalApp(isLoggedIn: isLoggedIn));
 }
 
 class PustakaDigitalApp extends StatelessWidget {
-  const PustakaDigitalApp({super.key});
+  final bool isLoggedIn;
+  const PustakaDigitalApp({super.key, this.isLoggedIn = false});
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +50,6 @@ class PustakaDigitalApp extends StatelessWidget {
           ),
           iconTheme: IconThemeData(color: lightPeach),
         ),
-        // =========================================================
-        // PERBAIKAN DI SINI: Gunakan CardThemeData, bukan CardTheme
-        // =========================================================
         cardTheme: CardThemeData(
           color: const Color(0xFF1C1C2B),
           elevation: 4,
@@ -53,7 +57,6 @@ class PustakaDigitalApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        // =========================================================
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: primaryBluePurple,
@@ -100,25 +103,31 @@ class PustakaDigitalApp extends StatelessWidget {
         ),
         dialogTheme: DialogThemeData(
           backgroundColor: const Color(0xFF1C1C2B),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          titleTextStyle: const TextStyle(color: lightPeach, fontSize: 20, fontWeight: FontWeight.w600),
+          shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          titleTextStyle: const TextStyle(
+              color: lightPeach, fontSize: 20, fontWeight: FontWeight.w600),
           contentTextStyle: TextStyle(color: lightPeach.withOpacity(0.8)),
         ),
         snackBarTheme: SnackBarThemeData(
           backgroundColor: primaryBluePurple,
           contentTextStyle: const TextStyle(color: Colors.white),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           behavior: SnackBarBehavior.floating,
         ),
         chipTheme: ChipThemeData(
           backgroundColor: lightBluePurple.withOpacity(0.2),
           labelStyle: TextStyle(color: lightPeach.withOpacity(0.9)),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: const CategorySelectionScreen(),
+      home: isLoggedIn
+          ? const CategorySelectionScreen()
+          : const LoginScreen(),
     );
   }
 }

@@ -40,11 +40,7 @@ class HomeScreen extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
-              // =========================================================
-              // PERUBAHAN DI SINI: Sesuaikan childAspectRatio
-              // Membuat kartu lebih tinggi, jadi gambar lebih banyak ruang
-              childAspectRatio: 0.55, // Contoh: (Lebar 0.55 dari Tinggi)
-              // =========================================================
+              childAspectRatio: 0.55,
             ),
             itemCount: displayedBooks.length,
             itemBuilder: (context, index) => BookCard(book: displayedBooks[index]),

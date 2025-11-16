@@ -19,14 +19,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          // Gaya dialog sudah diatur di main.dart
           title: const Text('Konfirmasi Pesanan'),
           content: Text('Pesanan Anda untuk buku "${widget.book.title}" akan segera diproses. Pembayaran melalui $_selectedPaymentMethod. Terima kasih!'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                Navigator.pop(context); // Kembali ke halaman detail buku
+                Navigator.pop(context);
               },
               child: const Text('OK'),
             ),
@@ -38,7 +37,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme; // Ambil colorScheme
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
@@ -54,7 +53,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               Text('Ringkasan Pesanan', style: Theme.of(context).textTheme.titleLarge?.copyWith(color: colorScheme.onBackground)),
               const SizedBox(height: 16),
               Card(
-                // Warna Card sudah diatur di main.dart
                 child: ListTile(
                   leading: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
@@ -72,7 +70,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               Text('Data Pengiriman', style: Theme.of(context).textTheme.titleLarge?.copyWith(color: colorScheme.onBackground)),
               const SizedBox(height: 16),
               TextFormField(
-                // Gaya input sudah diatur di main.dart
                 decoration: const InputDecoration(
                   labelText: 'Nama Lengkap',
                   prefixIcon: Icon(Icons.person),
@@ -83,11 +80,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   }
                   return null;
                 },
-                style: TextStyle(color: colorScheme.onBackground), // Warna teks input
+                style: TextStyle(color: colorScheme.onBackground),
               ),
               const SizedBox(height: 16),
               TextFormField(
-                // Gaya input sudah diatur di main.dart
                 decoration: const InputDecoration(
                   labelText: 'Alamat Pengiriman',
                   prefixIcon: Icon(Icons.home),
@@ -99,11 +95,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   }
                   return null;
                 },
-                style: TextStyle(color: colorScheme.onBackground), // Warna teks input
+                style: TextStyle(color: colorScheme.onBackground),
               ),
               const SizedBox(height: 16),
               TextFormField(
-                // Gaya input sudah diatur di main.dart
                 decoration: const InputDecoration(
                   labelText: 'Nomor Telepon',
                   prefixIcon: Icon(Icons.phone),
@@ -115,7 +110,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   }
                   return null;
                 },
-                style: TextStyle(color: colorScheme.onBackground), // Warna teks input
+                style: TextStyle(color: colorScheme.onBackground),
               ),
               const SizedBox(height: 32),
 
@@ -124,14 +119,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               DropdownButtonFormField<String>(
                 value: _selectedPaymentMethod,
                 decoration: const InputDecoration(
-                  // Gaya input sudah diatur di main.dart
                   prefixIcon: Icon(Icons.payment),
                 ),
-                dropdownColor: colorScheme.surface, // Warna background dropdown
+                dropdownColor: colorScheme.surface,
                 items: _paymentMethods.map((String method) {
                   return DropdownMenuItem<String>(
                     value: method,
-                    child: Text(method, style: TextStyle(color: colorScheme.onSurface)), // Warna teks item dropdown
+                    child: Text(method, style: TextStyle(color: colorScheme.onSurface)),
                   );
                 }).toList(),
                 onChanged: (String? newValue) {
@@ -139,13 +133,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     _selectedPaymentMethod = newValue!;
                   });
                 },
-                style: TextStyle(color: colorScheme.onBackground), // Warna teks yang dipilih
+                style: TextStyle(color: colorScheme.onBackground),
               ),
               const SizedBox(height: 32),
 
               ElevatedButton(
                 onPressed: _submitOrder,
-                // Gaya tombol sudah diatur di main.dart
                 child: const Text('Pesan Sekarang'),
               ),
             ],

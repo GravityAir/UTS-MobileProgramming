@@ -20,15 +20,11 @@ class BookCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Padding( // Tambahkan Padding agar gambar tidak menempel di tepi
-                padding: const EdgeInsets.all(8.0), // Berikan padding
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Image.network(
                   book.imageUrl,
-                  // =========================================================
-                  // PERUBAHAN DI SINI: Gunakan BoxFit.contain
-                  // Gambar akan diperkecil agar pas di dalam area tanpa terpotong.
                   fit: BoxFit.contain,
-                  // =========================================================
                   width: double.infinity,
                   errorBuilder: (context, error, stackTrace) => Container(
                     color: colorScheme.surface,

@@ -17,7 +17,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    _foundBooks = dummyBooks; // Cari dari semua buku
+    _foundBooks = dummyBooks;
   }
 
   void _runFilter(String enteredKeyword) {
@@ -46,10 +46,9 @@ class _SearchScreenState extends State<SearchScreen> {
           TextField(
             controller: _searchController,
             onChanged: (value) => _runFilter(value),
-            // Gaya input sudah diatur di main.dart
             decoration: const InputDecoration(
               labelText: 'Cari judul, pengarang, atau kategori...',
-              prefixIcon: Icon(Icons.search), // Gunakan prefixIcon agar lebih konsisten
+              prefixIcon: Icon(Icons.search),
             ),
           ),
           const SizedBox(height: 20),

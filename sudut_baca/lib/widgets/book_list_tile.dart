@@ -12,14 +12,13 @@ class BookListTile extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.only(bottom: 10),
-      // Card color sudah diatur di main.dart
       child: ListTile(
-        leading: ClipRRect( // Tambahkan ClipRRect agar gambar punya border radius
+        leading: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Image.network(
             book.imageUrl,
-            width: 60, // Perbesar sedikit
-            height: 80, // Perbesar sedikit
+            width: 60,
+            height: 80,
             fit: BoxFit.cover,
             errorBuilder: (context, error, stackTrace) => Container(
               width: 60,
@@ -39,7 +38,7 @@ class BookListTile extends StatelessWidget {
             Text('Rp ${book.price.toStringAsFixed(0)}', style: TextStyle(color: colorScheme.primary, fontWeight: FontWeight.bold)),
           ],
         ),
-        isThreeLine: true, // Pastikan subtitle bisa 2 baris
+        isThreeLine: true,
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => BookDetailScreen(book: book)));
         },

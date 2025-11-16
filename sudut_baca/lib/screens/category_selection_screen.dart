@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/book_data.dart'; // Diperlukan untuk dummyBooks
-import 'main_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pustakadigital/screens/main_screen.dart';
 
 class CategorySelectionScreen extends StatefulWidget {
   const CategorySelectionScreen({super.key});
@@ -11,13 +11,27 @@ class CategorySelectionScreen extends StatefulWidget {
 
 class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
   final Map<String, IconData> _categoryData = {
-    'Pengembangan Diri': Icons.self_improvement, // Ganti ikon agar lebih spesifik
-    'Pendidikan': Icons.menu_book, // Ganti ikon
-    'Novel': Icons.book, // Ganti ikon
-    'Ekonomi': Icons.currency_exchange, // Ganti ikon
+    'Pengembangan Diri': Icons.self_improvement,
+    'Pendidikan': Icons.menu_book,
+    'Novel': Icons.book,
+    'Ekonomi': Icons.currency_exchange,
   };
 
   final Set<String> _selectedCategories = {};
+  String? _userName;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserName();
+  }
+
+  void _loadUserName() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userName = prefs.getString('name') ?? 'Pengguna';
+    });
+  }
 
   void _toggleCategory(String category) {
     setState(() {
@@ -34,7 +48,6 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Harap pilih minimal satu kategori.'),
-          // Warna Snackbar sudah diatur di main.dart
         ),
       );
     } else {
@@ -51,7 +64,7 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme; // Ambil colorScheme dari tema
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       body: SafeArea(
@@ -64,13 +77,20 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Selamat Datang!',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: colorScheme.onBackground),
+                    'Selamat Datang, ${_userName ?? ''}!',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.onBackground,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Pilih kategori buku yang Anda minati.',
-                    style: TextStyle(fontSize: 16, color: colorScheme.onBackground.withOpacity(0.7)),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: colorScheme.onBackground.withOpacity(0.7),
+                    ),
                   ),
                 ],
               ),
@@ -91,7 +111,6 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                   final isSelected = _selectedCategories.contains(category);
 
                   return Card(
-                    // Gunakan warna dari colorScheme
                     color: isSelected ? colorScheme.primary : colorScheme.surface,
                     clipBehavior: Clip.antiAlias,
                     elevation: 4,
@@ -108,14 +127,18 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
                         children: [
                           Icon(
                             icon,
-                            color: isSelected ? colorScheme.onPrimary : colorScheme.onSurface,
+                            color: isSelected
+                                ? colorScheme.onPrimary
+                                : colorScheme.onSurface,
                             size: 48,
                           ),
                           const SizedBox(height: 12),
                           Text(
                             category,
                             style: TextStyle(
-                              color: isSelected ? colorScheme.onPrimary : colorScheme.onSurface,
+                              color: isSelected
+                                  ? colorScheme.onPrimary
+                                  : colorScheme.onSurface,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
@@ -131,7 +154,6 @@ class _CategorySelectionScreenState extends State<CategorySelectionScreen> {
               padding: const EdgeInsets.all(24.0),
               child: ElevatedButton(
                 onPressed: _navigateToMainScreen,
-                // Gaya tombol sudah diatur di main.dart
                 child: const Text('Lanjutkan'),
               ),
             ),
